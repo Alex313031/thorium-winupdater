@@ -13,9 +13,27 @@ If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 $Action   = New-ScheduledTaskAction -Execute "Thorium-WinUpdater.exe" -Argument "/Scheduled" -WorkingDirectory "$PSScriptRoot"
 $Settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable
-$24Hours  = New-ScheduledTaskTrigger -Once -At (Get-Date -Minute 0 -Second 0).AddHours(1) -RepetitionInterval (New-TimeSpan -Hours 24)
+$Paramswin7  = @{
+"Once"  = $true
+"At" = (Get-Date -Minute 0 -Second 0).AddHours(1)
+"RepetitionInterval" = (New-TimeSpan -Hours 24) 
+"RepetitionDuration" = ([TimeSpan]::MaxValue)
+}
+$Paramswin10  = @{
+"Once"  = $true
+"At" = (Get-Date -Minute 0 -Second 0).AddHours(1)
+"RepetitionInterval" = (New-TimeSpan -Hours 24)
+}
+if([environment]::OSVersion.Version.Major -le 6) {$Params = $Paramswin7}
+if([environment]::OSVersion.Version.Major -eq 10) {$Params = $Paramswin10}
+
+$24Hours = New-ScheduledTaskTrigger @Params
 $AtLogon  = New-ScheduledTaskTrigger -AtLogOn
+if ([environment]::OSVersion.Version.Major -le 6) {
+$AtLogon.RandomDelay = New-TimeSpan -Minutes 1
+} else {
 $AtLogon.Delay = 'PT1M'
+}
 $User     = If ($Args[0]) {$Args[0]} Else {[System.Security.Principal.WindowsIdentity]::GetCurrent().Name}
 $UserName = If ($Args[1]) {$Args[1]} Else {[Environment]::UserName}
 
