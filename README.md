@@ -3,6 +3,9 @@
 # Thorium WinUpdater
 By ltGuillaume: [Codeberg](https://codeberg.org/ltGuillaume) | [GitHub](https://github.com/ltGuillaume) | [Buy me a beer](https://buymeacoff.ee/ltGuillaume) 🍺
 
+## Support has ended
+I have decided to stop support for Thorium WinUpdater. This is primarily because of the lack of regular updates to the Thorium project, which leaves users vulnerable to 0-days for many months at a time. As such, I feel uncomfortable to recommend using Thorium by offering this updater. Additionally, due to a lack of proper release and naming conventions of the Thorium project, I have found it to be impossible to guarantee a reliant update flow via WinUpdater. For more information, see https://github.com/ltguillaume/thorium-winupdater/issues/7#issuecomment-2072405293. You are free to fork this repo to continue development. _I would greatly appreciate it if you dropped a note here if you are going to continue the project._
+
 An attempt to make updating [Thorium for Windows](https://github.com/Alex313031/Thorium-Win-AVX2) much easier. This is a fork of [LibreWolf WinUpdater](https://codeberg.org/ltGuillaume/librewolf-winupdater).
 
 ![Thorium WinUpdater](SCREENSHOT.png)
